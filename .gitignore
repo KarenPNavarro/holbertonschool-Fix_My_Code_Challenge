@@ -1,0 +1,4 @@
+# compiled binaries from the C challenge
+delete_dnodeint
+*.exe
+*.o
