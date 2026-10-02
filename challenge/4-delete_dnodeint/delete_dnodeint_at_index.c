@@ -10,29 +10,45 @@
  */
 int delete_dnodeint_at_index(dlistint_t **head, unsigned int index)
 {
-	dlistint_t *node;
+	dlistint_t *to_del;
 	unsigned int i;
 
 	if (head == NULL || *head == NULL)
 		return (-1);
 
-	node = *head;
-	for (i = 0; i < index; i++)
+	if (index == 0)
 	{
-		node = node->next;
-		if (node == NULL)
-			return (-1);
+		to_del = *head;
+		*head = to_del->next;
+		if (*head != NULL)
+			(*head)->prev = NULL;
+		free(to_del);
+		return (1);
 	}
 
-	/* unlink the node from both of its neighbours before freeing it */
-	if (node->prev == NULL)
-		*head = node->next;
-	else
-		node->prev->next = node->next;
+	/* walk the cursor to the node to delete */
+	for (i = 0; i < index; i++)
+	{
+		if ((*head)->next == NULL)
+		{
+			while ((*head)->prev != NULL)
+				*head = (*head)->prev;
+			return (-1);
+		}
+		*head = (*head)->next;
+	}
+	to_del = *head;
 
-	if (node->next != NULL)
-		node->next->prev = node->prev;
+	/* unlink it from both neighbours before it is freed */
+	(*head)->prev->next = (*head)->next;
+	if ((*head)->next != NULL)
+		(*head)->next->prev = (*head)->prev;
 
-	free(node);
+	/* the cursor walked off the head, so rewind it before freeing */
+	*head = to_del->prev;
+	while ((*head)->prev != NULL)
+		*head = (*head)->prev;
+
+	free(to_del);
 	return (1);
 }
