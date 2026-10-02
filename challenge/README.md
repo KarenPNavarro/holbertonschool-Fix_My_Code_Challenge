@@ -21,8 +21,12 @@ its executable bit set and LF line endings.
 ./1-print_square.js 8
 ./2-sort.rb 4 1 -3 12
 ./3-user.py
+```
 
+The C task is compiled with the flags the project requires:
+
+```
 cd 4-delete_dnodeint
-gcc -Wall -pedantic -Werror -Wextra -std=gnu89 main.c free_dlistint.c     print_dlistint.c add_dnodeint_end.c delete_dnodeint_at_index.c     -o delete_dnodeint
+gcc -Wall -pedantic -Werror -Wextra -std=gnu89 main.c free_dlistint.c print_dlistint.c add_dnodeint_end.c delete_dnodeint_at_index.c -o delete_dnodeint
 ./delete_dnodeint
 ```
