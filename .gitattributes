@@ -1,2 +1,10 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Executable scripts must keep LF endings: a CRLF shebang breaks the
+# interpreter lookup on Linux ("bad interpreter: no such file or directory").
+*.py text eol=lf
+*.js text eol=lf
+*.rb text eol=lf
+*.c  text eol=lf
+*.h  text eol=lf
